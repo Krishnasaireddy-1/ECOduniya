@@ -1,0 +1,121 @@
+/* General container styling */
+.purchase-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #33A18B;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .form-group input:focus {
+    border-color: #41C8B7;
+    outline: none;
+  }
+  
+  .search-btn {
+    background-color: #41C8B7;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .search-btn:hover {
+    background-color: #33A18B;
+  }
+  
+  /* Message Styling */
+  .message {
+    margin-top: 15px;
+    color: #41C8B7;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .best-seller {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .best-seller h3 {
+    font-size: 20px;
+    color: #33A18B;
+  }
+  
+  .best-seller p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    .purchase-container {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    .form-container {
+      padding: 15px;
+    }
+  
+    .search-btn {
+      padding: 10px 15px;
+    }
+  
+    .best-seller h3 {
+      font-size: 18px;
+    }
+  
+    .best-seller p {
+      font-size: 14px;
+    }
+  }
+  

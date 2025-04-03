@@ -1,0 +1,153 @@
+.main-bdr {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  /* Hero Section */
+/* Main wrapper for the entire page */
+.main-bdr {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  /* Hero Section */
+ /* Main wrapper for the entire page */
+.main-bdr {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background-image: url('https://th.bing.com/th/id/OIP.cDc5dCu8IKcNZNqluZ-E9wHaD2?rs=1&pid=ImgDetMain'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }
+  
+  .hero-ctnt h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Makes text stand out on the image */
+  }
+  
+  /* Features Section */
+  .features {
+    margin: 40px 0;
+  }
+  
+  .features h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .features-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .feature-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 23%; /* Adjusted to fit 4 items in one row */
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-5px); /* Adds a hover effect to lift the box */
+  }
+  
+  .feature-item h3 {
+    font-size: 1.6rem;
+    color: #41c8b7; /* Teal color for headings */
+    margin-bottom: 10px;
+  }
+  
+  .feature-item p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* About Us Section */
+  .about-us {
+    background-color: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .about-us h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-us p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Call to Action Section */
+  .cta {
+    background-color: #76eddd;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  .cta h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .cta-btn {
+    background-color: #41c8b7;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #33a18b;
+  }
+  
+  /* Media Query for responsiveness */
+  @media (max-width: 768px) {
+    .features-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .feature-item {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
