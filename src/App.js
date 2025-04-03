@@ -6,6 +6,7 @@ import Tradeoff from "./userpages/Tradeoff";
 import Home from "./businesspages/Home";
 import Complaints from "./businesspages/Complaints";
 import Deals from "./businesspages/Deals";
+import Payment from "./businesspages/Payment";
 // import Deals from "./businesspages/deals";
 import Mgt from "./businesspages/Mgt";
 import Purchase from "./businesspages/Purchase";
@@ -61,6 +62,8 @@ function App() {
           element={<PrivateRoute element={<BusinessLayout />} allowedRoles={["business"]} />}
         >
           <Route path="home" element={<Home />} />
+          <Route path="payment" element={<Payment />} />
+
           <Route path="wastemgt" element={<Mgt />} />
           <Route path="deals" element={<Deals />} />
           <Route path="complaints" element={<Complaints />} />

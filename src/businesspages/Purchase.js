@@ -1,7 +1,7 @@
 
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
-// import Chat from "./Chat"; // Import chat component
+// import Chat from "./Chat";
 
 // const Purchase = () => {
 //   const [deals, setDeals] = useState([]);
@@ -10,17 +10,32 @@
 
 //   useEffect(() => {
 //     // Get logged-in user from local storage
-//     const storedUser = JSON.parse(localStorage.getItem("user"));
-//     if (storedUser && storedUser.name) {
-//       setLoggedInUser(storedUser.name);
+//     const storedUser = localStorage.getItem("user");
+//     // console.log("Raw storedUser:", storedUser); // Debugging
+
+//     if (storedUser) {
+//       try {
+//         const parsedUser = JSON.parse(storedUser);
+//         // console.log("Parsed user object:", parsedUser); // Debugging
+
+//         if (parsedUser && parsedUser.name) {
+//           setLoggedInUser(parsedUser.name);
+//         }
+//       } catch (error) {
+//         console.error("Error parsing user from localStorage:", error);
+//       }
 //     }
 
 //     // Fetch deals
 //     const fetchDeals = async () => {
 //       try {
 //         const response = await axios.get("http://localhost:5000/api/deals");
+//         console.log("Fetched deals:", response.data); // Debugging
+
 //         // Filter out deals posted by the logged-in user
-//         const filteredDeals = response.data.filter(deal => deal.userName !== storedUser?.userName);
+//         const filteredDeals = response.data.filter(
+//           (deal) => deal.userName !== loggedInUser
+//         );
 //         setDeals(filteredDeals);
 //       } catch (error) {
 //         console.error("Error fetching deals:", error);
@@ -31,8 +46,9 @@
 //   }, []);
 
 //   const handleContact = (userName) => {
-//     console.log("Contacting user:", userName);
-//     setChatUser(userName); // Open chat with the selected user
+//     // console.log("Contacting user:", userName);
+//     // console.log("Logged-in user:", loggedInUser);
+//     setChatUser(userName);
 //   };
 
 //   return (
@@ -58,7 +74,10 @@
 //               <td>{deal.location}</td>
 //               <td>${deal.price}</td>
 //               <td>
-//                 <button className="contact-btn" onClick={() => handleContact(deal.userName)}>
+//                 <button
+//                   className="contact-btn"
+//                   onClick={() => handleContact(deal.userName)}
+//                 >
 //                   Contact
 //                 </button>
 //               </td>
@@ -67,31 +86,38 @@
 //         </tbody>
 //       </table>
 
-//       {chatUser && <Chat chatUser={chatUser} loggedInUser={loggedInUser} />} {/* Open chat on click */}
+//       {/* Debugging: Check values before passing to Chat */}
+//       <p>chatUser: {chatUser || "Not Set"}</p>
+//       <p>loggedInUser: {loggedInUser || "Not Set"}</p>
+
+//       {chatUser && loggedInUser ? (
+//         <Chat selectedUser={chatUser} currentUser={loggedInUser} />
+//       ) : (
+//         <p>Select a user to start a chat</p>
+//       )}
 //     </div>
 //   );
 // };
 
 // export default Purchase;
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Chat from "./Chat";
+import { FaEnvelope } from "react-icons/fa";
 
 const Purchase = () => {
   const [deals, setDeals] = useState([]);
   const [chatUser, setChatUser] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState("");
+  const [messageUsers, setMessageUsers] = useState([]);
+  const [showMessageList, setShowMessageList] = useState(false);
 
   useEffect(() => {
-    // Get logged-in user from local storage
     const storedUser = localStorage.getItem("user");
-    // console.log("Raw storedUser:", storedUser); // Debugging
-
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        // console.log("Parsed user object:", parsedUser); // Debugging
-
         if (parsedUser && parsedUser.name) {
           setLoggedInUser(parsedUser.name);
         }
@@ -99,14 +125,12 @@ const Purchase = () => {
         console.error("Error parsing user from localStorage:", error);
       }
     }
+  }, []);
 
-    // Fetch deals
+  useEffect(() => {
     const fetchDeals = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/deals");
-        console.log("Fetched deals:", response.data); // Debugging
-
-        // Filter out deals posted by the logged-in user
         const filteredDeals = response.data.filter(
           (deal) => deal.userName !== loggedInUser
         );
@@ -116,18 +140,47 @@ const Purchase = () => {
       }
     };
 
-    fetchDeals();
-  }, []);
+    if (loggedInUser) fetchDeals();
+  }, [loggedInUser]);
 
-  const handleContact = (userName) => {
-    // console.log("Contacting user:", userName);
-    // console.log("Logged-in user:", loggedInUser);
-    setChatUser(userName);
-  };
+  useEffect(() => {
+    const fetchMessageUsers = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/messages/users/${loggedInUser}`);
+        setMessageUsers(response.data); // Expecting an array of users with whom messages exist
+      } catch (error) {
+        console.error("Error fetching message users:", error);
+      }
+    };
+
+    if (loggedInUser) fetchMessageUsers();
+  }, [loggedInUser]);
 
   return (
     <div className="deals-container">
       <h2>Available Waste Deals</h2>
+
+      {/* Messages Icon */}
+      <div className="messages-icon" onClick={() => setShowMessageList(!showMessageList)}>
+        <FaEnvelope size={24} />
+        {messageUsers.length > 0 && <span className="message-count">{messageUsers.length}</span>}
+      </div>
+
+      {/* Message Users List */}
+      {showMessageList && (
+  <div className="message-list">
+    <h3>Messages</h3>
+    <ul>
+      {messageUsers.map((user, index) => (
+        <li key={user._id || index} onClick={() => setChatUser(user)}>
+          {user}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+      {/* Deals Table */}
       <table className="deals-table">
         <thead>
           <tr>
@@ -148,10 +201,7 @@ const Purchase = () => {
               <td>{deal.location}</td>
               <td>${deal.price}</td>
               <td>
-                <button
-                  className="contact-btn"
-                  onClick={() => handleContact(deal.userName)}
-                >
+                <button className="contact-btn" onClick={() => setChatUser(deal.userName)}>
                   Contact
                 </button>
               </td>
@@ -160,10 +210,7 @@ const Purchase = () => {
         </tbody>
       </table>
 
-      {/* Debugging: Check values before passing to Chat */}
-      <p>chatUser: {chatUser || "Not Set"}</p>
-      <p>loggedInUser: {loggedInUser || "Not Set"}</p>
-
+      {/* Chat Component */}
       {chatUser && loggedInUser ? (
         <Chat selectedUser={chatUser} currentUser={loggedInUser} />
       ) : (
@@ -174,4 +221,3 @@ const Purchase = () => {
 };
 
 export default Purchase;
-
